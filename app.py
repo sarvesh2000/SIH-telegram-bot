@@ -2,11 +2,6 @@ from flask import Flask, request
 import requests
 import os
 import telebot
-
-os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
-
-app = Flask(__name__)
-
 # Everything else same as usual
 
 from parse_rest.datatypes import Function, Object, GeoPoint
@@ -14,6 +9,10 @@ from parse_rest.connection import register
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.connection import ParseBatcher
 from parse_rest.core import ResourceRequestBadRequest, ParseError
+
+os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+
+app = Flask(__name__)
 
 APPLICATION_ID = 'Ts1A7Zvn3GBJGN62VyvYJEUiKEJwyIBSumxwiPRk'
 REST_API_KEY = 'mjbuzgxCofRDnSCUU7yovyKyKdkfSZr9KvJYqpgi'
@@ -34,7 +33,10 @@ def saveIdToDB(message,user_email):
     saveContact = Function("saveContactDetails")
     result = saveContact(email=user_email)
     if(result['result'] == "Success"):
+        print(result)
         bot.reply_to(message, "Thanks for registering with us. You'll get further notifications from us.")
+    else:
+        bot.reply_to(message, "Error in registration")
 
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
