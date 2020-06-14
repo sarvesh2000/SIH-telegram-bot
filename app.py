@@ -36,7 +36,7 @@ def reply(message):
 
 def saveIdToDB(message,user_email):
     saveContact = Function("saveContactDetails")
-    result = saveContact(email=user_email)
+    result = saveContact(email=user_email, user_id=message.from_user.id)
     print(result)
     if(result['result'] == "Success"):
         reply(message)
