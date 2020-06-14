@@ -28,8 +28,18 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.reply_to(message, message.from_user.id)
-    
+	bot.reply_to(message, "Hello. Welcome to SIH Notification Bot. Please send your email id registered with the DB to add your id for notifications.")
+
+def saveIdToDB(message,user_email):
+    saveContact = Function("saveContactDetails")
+    result = saveContact(email=user_email)
+    if(result['result'] == "Success"):
+        bot.reply_to(message, "Thanks for registering with us. You'll get further notifications from us.")
+
+
+@bot.message_handler(func=lambda message: True, content_types=['text'])
+def echo_message(message):
+    saveIdToDB(message,message.text)    
 
 @app.route('/' + TOKEN, methods=['POST'])
 def getMessage():
