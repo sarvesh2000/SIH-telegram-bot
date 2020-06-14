@@ -2,6 +2,11 @@ from flask import Flask, request
 import requests
 import os
 import telebot
+
+os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+
+app = Flask(__name__)
+
 # Everything else same as usual
 
 from parse_rest.datatypes import Function, Object, GeoPoint
@@ -10,9 +15,6 @@ from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.connection import ParseBatcher
 from parse_rest.core import ResourceRequestBadRequest, ParseError
 
-os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
-
-app = Flask(__name__)
 
 APPLICATION_ID = 'Ts1A7Zvn3GBJGN62VyvYJEUiKEJwyIBSumxwiPRk'
 REST_API_KEY = 'mjbuzgxCofRDnSCUU7yovyKyKdkfSZr9KvJYqpgi'
