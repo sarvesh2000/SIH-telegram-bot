@@ -58,7 +58,7 @@ def webhook():
 
 def bot_send(result):
     text = 'Hey your file with file ID:'+result['result']['FileID'] +' is pending. Please start / finish the job quickly if not done already.'
-    bot.reply_to(result['result']['PhoneNumber'],text)
+    bot.send_message(result['result']['PhoneNumber'],text)
 
 @app.route("/check")
 def check():
