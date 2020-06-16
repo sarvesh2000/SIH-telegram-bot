@@ -59,16 +59,18 @@ def webhook():
 def bot_send():
     bot.reply_to(result['result']['PhoneNumber'],text)
 
-text = 'Hey your file with file ID:'+result['result']['FileID'] +' is pending. Please start / finish the job quickly if not done already.'
-jobDeadline = Function("jobDeadline")
-result= jobDeadline(status="created")
-print(result)
-bot_send()
-
-result= jobDeadline(status="pending")
-print(result)
-if(result['result']!="No Results Found"):
+@app.route("/check")
+def check():
+    text = 'Hey your file with file ID:'+result['result']['FileID'] +' is pending. Please start / finish the job quickly if not done already.'
+    jobDeadline = Function("jobDeadline")
+    result= jobDeadline(status="created")
+    print(result)
     bot_send()
+
+    result= jobDeadline(status="pending")
+    print(result)
+    if(result['result']!="No Results Found"):
+        bot_send()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
