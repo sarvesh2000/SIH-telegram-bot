@@ -67,7 +67,16 @@ def check():
     print(result)
     bot_send(result)
 
+    result= jobDeadline(status="reassigned - created")
+    print(result)
+    bot_send(result)
+
     result= jobDeadline(status="pending")
+    print(result)
+    if(result['result']!="No Results Found"):
+        bot_send(result)
+
+    result= jobDeadline(status="reassigned - pending")
     print(result)
     if(result['result']!="No Results Found"):
         bot_send(result)
